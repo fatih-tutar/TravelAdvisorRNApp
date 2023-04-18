@@ -34,6 +34,10 @@ const HomeScreen = () => {
           A placeat debitis unde eligendi
         </Text>      
       </View>
+
+      {/* Circle Section */}
+      <View className="w-[350px] h-[350px] bg-[#00BCC9] rounded-full absolute bottom-32 -right-32"></View>
+      <View className="w-[350px] h-[350px] bg-[#E99625] rounded-full absolute -bottom-24 -left-32"></View>
     </SafeAreaView>
   )
 }
