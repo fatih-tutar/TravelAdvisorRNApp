@@ -4,6 +4,7 @@ import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplet
 import { useNavigation } from '@react-navigation/native';
 import { Avatar, Hotels, Attractions, Restaurants } from '../assets';
 import MenuContainer from '../components/MenuContainer';
+import ItemCarContainer from '../components/ItemCarContainer';
 import { FontAwesome } from '@expo/vector-icons';
 
 const Discover = () => {
@@ -81,7 +82,18 @@ const Discover = () => {
             </TouchableOpacity>
           </View>
           <View className="px-4 mt-8 flex-row items-center justify-evenly flex-wrap">
-
+            <ItemCarContainer 
+              key={"101"} 
+              imageSrc={"https://cdn.pixabay.com/photo/2015/06/19/21/24/avenue-815297_1280.jpg"} 
+              title="Something a very big" 
+              location="Doha" 
+            />
+            <ItemCarContainer 
+              key={"102"} 
+              imageSrc={"https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072821_640.jpg"} 
+              title="Sample" 
+              location="Qatar" 
+            />
           </View>
         </View>
       </ScrollView>
