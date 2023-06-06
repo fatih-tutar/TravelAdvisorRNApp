@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, Image, ScrollView, TouchableOpacity } from 'react-native'
+import { View, Text, SafeAreaView, Image, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native'
 import React, {useLayoutEffect, useState} from 'react'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { useNavigation } from '@react-navigation/native';
@@ -12,6 +12,7 @@ const Discover = () => {
   const navigation = useNavigation();
 
   const [type, setType] = useState("restaurants")
+  const [isLoading, setisLoading] = useState(false);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -49,6 +50,11 @@ const Discover = () => {
         />
       </View>
       {/* Menu Container */}
+      { isLoading ? 
+      <View className="flex-1 items-center justify-center">
+        <ActivityIndicator size="large" color="#0B646B" />
+      </View> 
+      : 
       <ScrollView>
         <View className="flex-row items-center justify-between px-8 mt-8">
           <MenuContainer 
@@ -97,6 +103,7 @@ const Discover = () => {
           </View>
         </View>
       </ScrollView>
+      }
     </SafeAreaView>
   )
 }
