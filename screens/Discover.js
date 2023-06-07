@@ -2,7 +2,7 @@ import { View, Text, SafeAreaView, Image, ScrollView, TouchableOpacity, Activity
 import React, {useLayoutEffect, useState} from 'react'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { useNavigation } from '@react-navigation/native';
-import { Avatar, Hotels, Attractions, Restaurants } from '../assets';
+import { Avatar, Hotels, Attractions, Restaurants, NotFound } from '../assets';
 import MenuContainer from '../components/MenuContainer';
 import ItemCarContainer from '../components/ItemCarContainer';
 import { FontAwesome } from '@expo/vector-icons';
@@ -11,8 +11,9 @@ const Discover = () => {
 
   const navigation = useNavigation();
 
-  const [type, setType] = useState("restaurants")
+  const [type, setType] = useState("restaurants");
   const [isLoading, setisLoading] = useState(false);
+  const [mainData, setmainData] = useState([]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -88,18 +89,32 @@ const Discover = () => {
             </TouchableOpacity>
           </View>
           <View className="px-4 mt-8 flex-row items-center justify-evenly flex-wrap">
-            <ItemCarContainer 
-              key={"101"} 
-              imageSrc={"https://cdn.pixabay.com/photo/2015/06/19/21/24/avenue-815297_1280.jpg"} 
-              title="Something a very big" 
-              location="Doha" 
-            />
-            <ItemCarContainer 
-              key={"102"} 
-              imageSrc={"https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072821_640.jpg"} 
-              title="Sample" 
-              location="Qatar" 
-            />
+            { 
+              mainData?.length > 0 ? (
+                <>
+                  <ItemCarContainer 
+                    key={"101"} 
+                    imageSrc={"https://cdn.pixabay.com/photo/2015/06/19/21/24/avenue-815297_1280.jpg"} 
+                    title="Something a very big" 
+                    location="Doha" 
+                  />
+                  <ItemCarContainer 
+                    key={"102"} 
+                    imageSrc={"https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072821_640.jpg"} 
+                    title="Sample" 
+                    location="Qatar" 
+                  />
+                </>
+              ) : (
+                <>
+                  <View className="w-full h-full items-center space-y-8 justify-center">
+                    <Image source={NotFound} className="w-32 h-32 object-cover"/>
+                    <Text className="text-2xl text-[#428288] font-semibold">
+                      Opps... No Data Found
+                    </Text>
+                  </View>
+                </>
+            )}
           </View>
         </View>
       </ScrollView>
