@@ -1,11 +1,12 @@
 import { View, Text, SafeAreaView, Image, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native'
-import React, {useLayoutEffect, useState} from 'react'
+import React, {useLayoutEffect, useState, useEffect} from 'react'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { useNavigation } from '@react-navigation/native';
 import { Avatar, Hotels, Attractions, Restaurants, NotFound } from '../assets';
 import MenuContainer from '../components/MenuContainer';
 import ItemCarContainer from '../components/ItemCarContainer';
 import { FontAwesome } from '@expo/vector-icons';
+import { getPlacesData } from '../api';
 
 const Discover = () => {
 
@@ -13,11 +14,21 @@ const Discover = () => {
 
   const [type, setType] = useState("restaurants");
   const [isLoading, setisLoading] = useState(false);
-  const [mainData, setmainData] = useState([]);
+  const [mainData, setMainData] = useState([]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false,
+    })
+  }, []);
+
+  useEffect(() => {
+    setisLoading(true);
+    getPlacesData().then(data => {
+      setMainData(data);
+      setInterval(() => {
+        setisLoading(false);
+      }, 2000);
     })
   }, []);
 
@@ -92,18 +103,18 @@ const Discover = () => {
             { 
               mainData?.length > 0 ? (
                 <>
-                  <ItemCarContainer 
-                    key={"101"} 
-                    imageSrc={"https://cdn.pixabay.com/photo/2015/06/19/21/24/avenue-815297_1280.jpg"} 
-                    title="Something a very big" 
-                    location="Doha" 
-                  />
-                  <ItemCarContainer 
-                    key={"102"} 
-                    imageSrc={"https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072821_640.jpg"} 
-                    title="Sample" 
-                    location="Qatar" 
-                  />
+                  {mainData?.map((data, i) => (
+                    <ItemCarContainer 
+                      key={i} 
+                      imageSrc={
+                        data?.photo?.images?.medium?.url ? 
+                        data?.photo?.images?.medium?.url : 
+                        "https://cdn.pixabay.com/photo/2015/10/30/12/22/eat-1014025_1280.jpg"
+                      } 
+                      title = {data?.name} 
+                      location = {data?.location_string} 
+                    />
+                  ))}
                 </>
               ) : (
                 <>
