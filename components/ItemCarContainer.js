@@ -1,10 +1,14 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import { FontAwesome } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
-const ItemCarContainer = ({imageSrc, title, location}) => {
-  return (
-    <TouchableOpacity className="rounded-md border border-gray-300 space-y-2 px-3 py-2 shadow-md bg-white w-[160px] my-2">
+const ItemCarContainer = ({imageSrc, title, location, data}) => {
+  const navigation = useNavigation()
+    return (
+    <TouchableOpacity 
+        onPress={() => navigation.navigate("ItemScreen", { param : data })}
+        className="rounded-md border border-gray-300 space-y-2 px-3 py-2 shadow-md bg-white w-[160px] my-2">
         <Image 
             source={{uri: imageSrc}} 
             className="w-full h-[120px] rounded-md object-cover"
