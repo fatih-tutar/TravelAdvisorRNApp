@@ -11,6 +11,10 @@
   <li>Used google places and rapidapi for dynamic listing by city.</li>
 </ul>
 
+<p>App download link : https://expo.dev/@fatihtutar/TravelAdvisorRNApp</p>
+
+<h2>Screenshots</h2>
+
 <table>
   <tr>
     <th>
